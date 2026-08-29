@@ -101,7 +101,8 @@ function renderCommentSection(body,data,gameId){
     div.appendChild(textDiv);
 
     const controls=document.createElement('div'); controls.className='community-comment-controls';
-    const currentUser = document.querySelector('#current-user').textContent;
+    const currentUserEl = document.querySelector('#current-user'); 
+    const currentUser = currentUserEl ? currentUserEl.textContent : '';
     if(c.author===currentUser || currentUser==='admin'){
       const delBtn=document.createElement('button'); delBtn.type='button'; delBtn.style.marginLeft='6px'; delBtn.textContent='Delete'; delBtn.addEventListener('click',async ()=>{ if(!confirm('Delete this comment?')) return; try{ await api('delete_comment',{body:{game:gameId,id:c.id}}); const refreshed=await api('game',{body:{game:gameId}}); renderCommentSection(body,refreshed,gameId); }catch(err){alert(err.message);} });
       controls.appendChild(delBtn);
