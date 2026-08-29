@@ -23,7 +23,6 @@ input[type=text],textarea,select{padding:8px;border-radius:6px;border:1px solid 
 button{background:#2563eb;color:#fff;border:0;padding:8px 10px;border-radius:6px;cursor:pointer}
 .small{background:#e5e7eb;color:#111;padding:6px 8px;border-radius:6px}
 .actions{display:flex;gap:8px}
-.user-row .actions button{background:#ef4444}
 </style>
 </head>
 <body>
@@ -55,27 +54,28 @@ button{background:#2563eb;color:#fff;border:0;padding:8px 10px;border-radius:6px
 <tbody id="games-body"><tr><td colspan="8">Loading…</td></tr></tbody>
 </table>
 </section>
-<hr />
-<section id="users" style="margin-top:18px">
-<h2>User management</h2>
 
-<div style="display:flex;gap:16px;align-items:center;margin-bottom:10px">
-  <form id="add-user-form" style="display:flex;gap:8px;align-items:center">
-    <input name="username" placeholder="username" required />
-    <input name="password" placeholder="password" type="password" required />
-    <button type="submit">Add user</button>
-  </form>
-  <div class="small">Password will be stored as a secure hash.</div>
-</div>
+<!-- User management section -->
+<section style="margin-top:18px">
+  <h2>User management</h2>
+  <p>Manage application users. Passwords are stored as hashes.</p>
+  <div style="max-width:800px">
+    <table class="table" id="users-table">
+      <thead><tr><th>Username</th><th>Password (set new)</th><th></th></tr></thead>
+      <tbody id="users-body"><tr><td colspan="3">Loading…</td></tr></tbody>
+    </table>
 
-<table class="table" id="users-table">
-<thead><tr><th>Username</th><th>Actions</th></tr></thead>
-<tbody id="users-body"><tr><td colspan="2">Loading…</td></tr></tbody>
-</table>
+    <h3 style="margin-top:12px">Create new user</h3>
+    <form id="user-add-form" style="display:grid;grid-template-columns:1fr auto;gap:8px;max-width:380px">
+      <input name="username" type="text" placeholder="username" required />
+      <input name="password" type="password" placeholder="password" required />
+      <div style="grid-column:1/-1"><button type="submit">Create user</button></div>
+    </form>
+  </div>
 </section>
 
 <hr />
-<p style="margin-top:14px;font-size:.9rem;color:#667">After you add/edit games or users they will appear in the main page (Liste 1 or Liste 2). Make sure the webserver can write to <code>community-data/</code>.</p>
+<p style="margin-top:14px;font-size:.9rem;color:#667">After you add/edit games they will appear in the main page (Liste 1 or Liste 2). Make sure the webserver can write to <code>community-data/</code>.</p>
 </div>
 <script>
 (async ()=>{
@@ -87,29 +87,14 @@ button{background:#2563eb;color:#fff;border:0;padding:8px 10px;border-radius:6px
     const res=await fetch(url, init); const text=await res.text();
     try{ const j=JSON.parse(text||'null'); if(!res.ok) throw new Error(j?.error||res.statusText); return j; }catch(e){ throw new Error('API error: '+(e.message||text)); }
   }
+  function el(tag,attrs={},...children){ const n=document.createElement(tag); for(const k in attrs) if(k==='class') n.className=attrs[k]; else n.setAttribute(k, attrs[k]); for(const c of children) if(typeof c==='string') n.appendChild(document.createTextNode(c)); else if(c) n.appendChild(c); return n; }
+
+  async function loadGames(){ const t=document.getElementById('games-body'); t.innerHTML='<tr><td colspan="8">Loading…</td></tr>'; try{ const r=await api('games'); const games=r.games||[]; const rows=[]; for(const g of games){ const tr=document.createElement('tr'); tr.dataset.id=String(g.id||''); tr.innerHTML=`<td class="small">${escapeHtml(String(g.id||''))}</td>`; tr.innerHTML+=`<td><input type="text" name="name" value="${escapeHtml(g.name||'')}"></td>`; tr.innerHTML+=`<td><input type="text" name="players" value="${escapeHtml(g.players||'')}"></td>`; tr.innerHTML+=`<td><input type="text" name="genre" value="${escapeHtml(g.genre||'')}"></td>`; tr.innerHTML+=`<td><input type="text" name="steam" value="${escapeHtml(g.steam||'')}"></td>`; tr.innerHTML+=`<td><input type="text" name="notes" value="${escapeHtml(g.notes||'')}"></td>`; tr.innerHTML+=`<td><select name="list"><option value="1" ${g.list==1?'selected':''}>1</option><option value="2" ${g.list==2?'selected':''}>2</option></select></td>`; tr.innerHTML+=`<td class="actions"><button data-save>Save</button><button data-delete style="background:#ef4444">Delete</button></td>`; rows.push(tr); }
+      if(rows.length===0){ t.innerHTML='<tr><td colspan="8"><em>No games yet.</em></td></tr>'; } else { t.innerHTML=''; for(const r of rows) t.appendChild(r); }
+  }catch(err){ t.innerHTML=`<tr><td colspan="8" style="color:#a00">${escapeHtml(err.message)}</td></tr>`; }
+  }
 
   function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
-
-  // Games management (existing)
-  async function loadGames(){
-    const t=document.getElementById('games-body'); t.innerHTML='<tr><td colspan="8">Loading…</td></tr>';
-    try{
-      const r=await api('games'); const games=r.games||[]; const rows=[];
-      for(const g of games){
-        const tr=document.createElement('tr'); tr.dataset.id=g.id;
-        tr.innerHTML=`<td>${escapeHtml(g.id)}</td>`;
-        tr.innerHTML+=`<td><input type="text" name="name" value="${escapeHtml(g.name||'')}"></td>`;
-        tr.innerHTML+=`<td><input type="text" name="players" value="${escapeHtml(g.players||'')}"></td>`;
-        tr.innerHTML+=`<td><input type="text" name="genre" value="${escapeHtml(g.genre||'')}"></td>`;
-        tr.innerHTML+=`<td><input type="text" name="steam" value="${escapeHtml(g.steam||'')}"></td>`;
-        tr.innerHTML+=`<td><input type="text" name="notes" value="${escapeHtml(g.notes||'')}"></td>`;
-        tr.innerHTML+=`<td><select name="list"><option value="1" ${g.list==1?'selected':''}>1</option><option value="2" ${g.list==2?'selected':''}>2</option></select></td>`;
-        tr.innerHTML+=`<td class="actions"><button data-save>Save</button><button data-delete style="background:#ef4444">Delete</button></td>`;
-        rows.push(tr);
-      }
-      if(rows.length===0){ t.innerHTML='<tr><td colspan="8"><em>No games yet.</em></td></tr>'; } else { t.innerHTML=''; for(const r of rows) t.appendChild(r); }
-    }catch(err){ t.innerHTML=`<tr><td colspan="8" style="color:#a00">${escapeHtml(err.message)}</td></tr>`; }
-  }
 
   document.getElementById('add-form').addEventListener('submit', async e=>{
     e.preventDefault(); const f=new FormData(e.target); const body={name:f.get('name'),players:f.get('players'),genre:f.get('genre'),steam:f.get('steam'),notes:f.get('notes'),list:parseInt(f.get('list')||1,10)};
@@ -118,47 +103,53 @@ button{background:#2563eb;color:#fff;border:0;padding:8px 10px;border-radius:6px
 
   document.getElementById('games-body').addEventListener('click', async e=>{
     const tr=e.target.closest('tr'); if(!tr) return; const id=tr.dataset.id; if(e.target.matches('[data-save]')){
-      const name=tr.querySelector('input[name="name"]').value; const players=tr.querySelector('input[name="players"]').value; const genre=tr.querySelector('input[name="genre"]').value; const steam=tr.querySelector('input[name="steam"]').value; const notes=tr.querySelector('input[name="notes"]').value; const list=parseInt(tr.querySelector('select[name="list"]').value||'1',10);
+      const name=tr.querySelector('input[name="name"]').value; const players=tr.querySelector('input[name="players"]').value; const genre=tr.querySelector('input[name="genre"]').value; const steam=tr.querySelector('input[name="steam"]').value; const notes=tr.querySelector('input[name="notes"]').value; const list=parseInt(tr.querySelector('select[name="list"]').value||1,10);
       try{ await api('games_edit',{id,name,players,genre,steam,notes,list}); alert('Saved'); loadGames(); }catch(err){ alert(err.message); }
     }else if(e.target.matches('[data-delete]')){
       if(!confirm('Delete this game?')) return; try{ await api('games_delete',{id}); alert('Deleted'); loadGames(); }catch(err){ alert(err.message); }
     }
   });
 
-  // User management
+  // --- Users management JS using existing API endpoints (users_list, users_add, users_edit, users_delete)
   async function loadUsers(){
-    const t=document.getElementById('users-body'); t.innerHTML='<tr><td colspan="2">Loading…</td></tr>';
+    const t=document.getElementById('users-body'); t.innerHTML='<tr><td colspan="3">Loading…</td></tr>';
     try{
-      const r = await api('users_list'); const users = r.users||[]; t.innerHTML='';
-      if(users.length===0){ t.innerHTML='<tr><td colspan="2"><em>No users yet.</em></td></tr>'; return; }
+      const res = await api('users_list'); // returns { users: ["name", ...], admin: bool }
+      const users = res.users || [];
+      const rows = [];
       for(const u of users){
-        const tr=document.createElement('tr'); tr.className='user-row'; tr.dataset.user=u;
-        tr.innerHTML = `<td>${escapeHtml(u)}</td><td class="actions"><button data-rename>Edit</button><button data-delete style="background:#ef4444">Delete</button></td>`;
-        t.appendChild(tr);
+        const tr=document.createElement('tr');
+        tr.innerHTML = `<td><strong>${escapeHtml(u)}</strong></td>` +
+                       `<td><input type="password" name="password" placeholder="new password (leave blank to keep)"></td>` +
+                       `<td class="actions"><button data-save data-user="${escapeHtml(u)}">Save</button><button data-delete data-user="${escapeHtml(u)}" style="background:#ef4444">Delete</button></td>`;
+        rows.push(tr);
       }
-    }catch(err){ t.innerHTML=`<tr><td colspan="2" style="color:#a00">${escapeHtml(err.message)}</td></tr>`; }
+      if(rows.length===0) t.innerHTML='<tr><td colspan="3"><em>No users.</em></td></tr>';
+      else { t.innerHTML=''; for(const r of rows) t.appendChild(r); }
+    }catch(err){ t.innerHTML=`<tr><td colspan="3" style="color:#a00">${escapeHtml(err.message)}</td></tr>`; }
   }
 
-  document.getElementById('add-user-form').addEventListener('submit', async e=>{
-    e.preventDefault(); const f=new FormData(e.target); const username=(f.get('username')||'').toString().trim(); const password=(f.get('password')||'').toString();
-    if(!username||!password){ alert('Provide username and password'); return; }
-    try{ await api('users_add',{username,password}); alert('User created'); e.target.reset(); loadUsers(); }catch(err){ alert(err.message); }
-  });
-
   document.getElementById('users-body').addEventListener('click', async e=>{
-    const tr=e.target.closest('tr'); if(!tr) return; const user=tr.dataset.user;
-    if(e.target.matches('[data-rename]')){
-      const newName = prompt('New username (leave blank to keep):', user);
-      if(newName===null) return;
-      const newPass = prompt('New password (leave blank to keep):', '');
-      try{ await api('users_edit',{old:user,new:newName||'',password:(newPass||'')}); alert('User updated'); loadUsers(); }catch(err){ alert(err.message); }
-    } else if(e.target.matches('[data-delete]')){
-      if(!confirm(`Delete user "${user}"? This removes their votes and comments.`)) return;
-      try{ await api('users_delete',{username:user}); alert('User deleted'); loadUsers(); }catch(err){ alert(err.message); }
+    const btn = e.target.closest('button'); if(!btn) return; const user = btn.dataset.user; if(btn.hasAttribute('data-save')){
+      const tr = btn.closest('tr'); const pw = tr.querySelector('input[name="password"]').value;
+      if(pw && pw.length < 4) return alert('Password must be at least 4 characters');
+      try{
+        // users_edit expects 'old' and optionally 'password'
+        await api('users_edit', { old: user, password: (pw||'') });
+        alert('Saved'); await loadUsers();
+      }catch(err){ alert(err.message); }
+    } else if(btn.hasAttribute('data-delete')){
+      if(!confirm('Delete user '+user+'?')) return;
+      try{ await api('users_delete', { username: user }); alert('Deleted'); await loadUsers(); }catch(err){ alert(err.message); }
     }
   });
 
-  // initial load
+  document.getElementById('user-add-form').addEventListener('submit', async e=>{
+    e.preventDefault(); const f=new FormData(e.target); const u=f.get('username').trim(); const p=f.get('password')||''; if(!u||!p) return alert('username and password required');
+    try{ await api('users_add', { username: u, password: p }); alert('Created'); e.target.reset(); await loadUsers(); }catch(err){ alert(err.message); }
+  });
+
+  // initial loads
   await loadGames();
   await loadUsers();
 })();
