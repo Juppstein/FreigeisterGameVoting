@@ -9,13 +9,13 @@ if (!empty($_SESSION['user'])) {
 $dataDir = __DIR__ . '/community-data';
 $dataFile = $dataDir . '/community.json';
 $defaultUsers = [
-    'Markus' => 'Markus1291',
-    'Sandra' => 'Sandra1291',
-    'Eric' => 'Eric1291',
-    'Franzi' => 'Franzi1291',
-    'Armin' => 'Armin1291',
-    'Thorsten' => 'Thorsten1291',
-    'admin' => 'admin1291$'
+//    'Markus' => 'Markus1291',
+//    'Sandra' => 'Sandra1291',
+//    'Eric' => 'Eric1291',
+//    'Franzi' => 'Franzi1291',
+//    'Armin' => 'Armin1291',
+//    'Thorsten' => 'Thorsten1291',
+//    'admin' => 'admin1291$'
 ];
 
 function load_data_file(string $file): array {
