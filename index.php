@@ -273,7 +273,7 @@ async function init(){
 })();
 </script></head><body><main><div class="userbar">Logged in as <strong id="current-user">…</strong><span class="userbar-sep"> · </span><a href="logout.php">Log out</a><?php if(($_SESSION['user']??'')==='admin'){ echo '<span class="userbar-sep"> · </span><a href="admin.php">Admin</a>'; } ?><span style="margin-left:1rem"></span></div>
 <h1>Games für die Freigeister</h1>
-<p class="intro">Community ratings and comments. Click the comments button for a game's card to read and post comments and see individual ratings.</p>
+<p class="intro">Bewertungen und Kommentare. Klickt auf die Schaltfläche „Kommentare“ auf der Spielkarte, um Kommentare zu lesen und zu verfassen sowie die individuellen Bewertungen zu setzen oder anzuzeigen..</p>
 <h2>Liste 1</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -291,5 +291,4 @@ async function init(){
 </tbody>
 </table></div>
 
-<hr/><p>Tea for Two</p><p><a href="https://store.steampowered.com/app/1335790/Operation_Tango/" rel="noopener noreferrer" target="_blank">Operation Tango</a></p></main>
 </body></html>
