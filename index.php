@@ -230,19 +230,5 @@ async function init(){
 </tbody>
 </table></div>
 
-<h2>Liste 2 – MMOs</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>MMOs</th>
-<th><strong>Six players together?</strong></th>
-<th>Normal group structure</th>
-<th>Steam</th>
-<th></th>
-</tr>
-</thead>
-<tbody id="liste2-body">
-<!-- Liste 2 migrated into Liste 1; left empty -->
-</tbody>
-</table></div><hr/><p>Tea for Two</p><p><a href="https://store.steampowered.com/app/1335790/Operation_Tango/" rel="noopener noreferrer" target="_blank">Operation Tango</a></p></main>
+<hr/><p>Tea for Two</p><p><a href="https://store.steampowered.com/app/1335790/Operation_Tango/" rel="noopener noreferrer" target="_blank">Operation Tango</a></p></main>
 </body></html>
