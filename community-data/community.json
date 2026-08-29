@@ -132,7 +132,7 @@
             "players": "6-person activities",
             "genre": "FPS \/ MMO",
             "steam": "https:\/\/store.steampowered.com\/app\/1085660\/Destiny_2\/",
-            "notes": "delisted",
+            "notes": "",
             "list": 1
         },
         "final-fantasy-xiv": {
@@ -159,7 +159,7 @@
             "players": "5",
             "genre": "MMORPG",
             "steam": "",
-            "notes": "No Steam version",
+            "notes": "",
             "list": 1
         },
         "killing-floor-3": {
@@ -186,7 +186,7 @@
             "players": "4 normally \/ larger dedicated setups",
             "genre": "Survival",
             "steam": "https:\/\/store.steampowered.com\/app\/962130\/Grounded\/",
-            "notes": "delisted",
+            "notes": "",
             "list": 1
         },
         "eco": {
@@ -321,7 +321,7 @@
             "players": "",
             "genre": "Digital Tabletop RPG Server",
             "steam": "",
-            "notes": "no Steam Page",
+            "notes": "",
             "list": 1
         },
         "palworld-2": {
@@ -384,7 +384,7 @@
             "players": "6-player group",
             "genre": "",
             "steam": "",
-            "notes": "No Steam version",
+            "notes": "",
             "list": 1
         },
         "the-lord-of-the-rings-online": {
@@ -456,7 +456,7 @@
             "players": "4\/8\/12-player group",
             "genre": "MMO",
             "steam": "",
-            "notes": "No Steam version",
+            "notes": "",
             "list": 1
         },
         "lost-ark": {
@@ -503,8 +503,53 @@
             "steam": "",
             "notes": "",
             "list": 1
+        },
+        "testhanselspiel": {
+            "id": "testhanselspiel",
+            "name": "Testhanselspiel",
+            "players": "ein paar",
+            "genre": "Testhanselspiele",
+            "steam": "",
+            "notes": "Testhanselspiel halt.",
+            "list": 1
         }
     },
-    "votes": [],
-    "comments": []
+    "votes": {
+        "testhanselspiel": {
+            "Thorsten": 5,
+            "Franzi": 2,
+            "Armin": 1
+        }
+    },
+    "comments": {
+        "testhanselspiel": [
+            {
+                "id": "72d512af27b4",
+                "author": "Thorsten",
+                "text": "Bestes Spiel Evah!",
+                "created_at": "2026-08-29T21:11:16+00:00"
+            },
+            {
+                "id": "539d2c0b8e4b",
+                "author": "Franzi",
+                "text": "Gar nich bestes Spiel!",
+                "created_at": "2026-08-29T21:18:17+00:00"
+            },
+            {
+                "id": "b57b65fd1387",
+                "author": "Armin",
+                "text": "Clownspiel",
+                "created_at": "2026-08-29T21:19:02+00:00"
+            }
+        ]
+    },
+    "users": {
+        "Markus": "$2y$10$jDyEAPFm1wmUNQxqrntHS.EjE7VakZJ6tB0J.ENhLf0PUOzMuKMa6",
+        "Sandra": "$2y$10$9CxfcF.ZRz5KAG72bjW6\/eoYtrbyrf8cPanDhCYK\/Npar88GMTKvu",
+        "Eric": "$2y$10$1SzwKyFaG3uLh0H5DBQr0.yQwTMT8xvSUyZgsR60iN1NGxNT8LAL.",
+        "Franzi": "$2y$10$B\/kfH3bQF\/kHLy21pdzT6eulAtqITgfpRAggRjr5gnAaw9pqxWqJi",
+        "Armin": "$2y$10$OSU92YZW5qe05647sUjnFOatSXrABU6MfD2jwW8EtaWYj\/XxrrOaG",
+        "Thorsten": "$2y$10$ToL3kyYyy3L\/Uw4Vas6a2uB8aD1AqRryBx\/OUvyHYdLsYYEicAkEe",
+        "admin": "$2y$10$9CmiMJ0glMLiu\/DFkqKGrOrl.0RbQPC7VhOil.Q.N9sB.IfzdU5Pa"
+    }
 }
