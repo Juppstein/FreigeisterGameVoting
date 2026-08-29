@@ -129,20 +129,84 @@ function renderCommentSection(body,data,gameId){
   const existingComments=body.querySelector('.comments-wrap'); if(existingComments) existingComments.replaceWith(commentsWrap); else body.appendChild(commentsWrap);
 }
 
-async function init(){ try{ const all=await api('all'); const gamesResp=await api('games'); const gamesMeta=gamesResp.games||[]; document.querySelector('#current-user').textContent=all.__user||''; const liste1 = document.querySelector('#liste1-body'); if(liste1){ liste1.innerHTML=''; for(const k of Object.keys(all)){ if(k.startsWith('__')) continue; const g = all[k]; if(!g || (g.list||1) != 1) continue; const tr=document.createElement('tr'); tr.innerHTML = `<td><strong>${esc(g.name)}</strong></td><td>${esc(g.players)}</td><td>${esc(g.genre)}</td><td>${g.steam?`<a href="${esc(g.steam)}" rel="noopener noreferrer" target="_blank" class="steam-link">Steam ↗</a>`:''}</td><td><div class="community-cell" data-community-game="${esc(k)}">Loading…</div></td>`; liste1.appendChild(tr); } }
-    const cells=[...document.querySelectorAll('[data-community-game]')];
-    for(const cell of cells){
-      const key=cell.dataset.communityGame; let data = all[key] || null; if(!data){ const slug=slugifyClient(key); data = all[slug] || null; } if(!data){ for(const kk of Object.keys(all)){ const maybe=all[kk]; if(maybe && String(maybe.name).toLowerCase()===String(key).toLowerCase()){ data=maybe; break; } } }
-      const renderData = data || { average:0, count:0, mine:0, vote_details:[], comments:[], admin:false };
-      renderCell(cell, renderData);
-      const card = cell.querySelector('.community-card');
-      if(card){
-        const toggle = card.querySelector('.community-toggle');
-        if(toggle){ toggle.addEventListener('click', async ()=>{ card.classList.toggle('open'); if(card.classList.contains('open')){ let gid = key; if(all[gid]){} else { const slug=slugifyClient(key); if(all[slug]) gid=slug; else { for(const kk of Object.keys(all)){ const maybe=all[kk]; if(maybe && String(maybe.name).toLowerCase()===String(key).toLowerCase()){ gid=kk; break; } } } }
-              await populateBody(card, gid); } }); }
+async function init(){
+  try{
+    const all = await api('all');
+    const gamesResp = await api('games');
+    const gamesMeta = gamesResp.games || [];
+    document.querySelector('#current-user').textContent = all.__user || '';
+
+    // 1) Build the table rows for every game first (from 'all' + games metadata)
+    const liste1 = document.querySelector('#liste1-body');
+    if (liste1) {
+      liste1.innerHTML = '';
+      // rows from 'all' (games that have votes/comments)
+      for (const k of Object.keys(all)) {
+        if (k.startsWith('__')) continue;
+        const g = all[k];
+        if (!g || (g.list || 1) != 1) continue;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td><strong>${esc(g.name)}</strong></td><td>${esc(g.players)}</td><td>${esc(g.genre)}</td><td>${g.steam?`<a href="${esc(g.steam)}" rel="noopener noreferrer" target="_blank" class="steam-link">Steam ↗</a>`:''}</td><td><div class="community-cell" data-community-game="${esc(k)}">Loading…</div></td>`;
+        liste1.appendChild(tr);
+      }
+      // rows from games metadata that weren't included in 'all'
+      for (const g of gamesMeta) {
+        const id = g.id;
+        const name = (g.name||'').trim();
+        // skip if already present
+        if (document.querySelector(`[data-community-game="${CSS.escape(id)}"]`)) continue;
+        // also skip if list != 1
+        const listNum = (g.list||1);
+        if (listNum != 1) continue;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td><strong>${esc(g.name)}</strong></td><td>${esc(g.players)}</td><td>${esc(g.genre)}</td><td>${g.steam?`<a href="${esc(g.steam)}" rel="noopener noreferrer" target="_blank" class="steam-link">Steam ↗</a>`:''}</td><td><div class="community-cell" data-community-game="${esc(g.id)}">Loading…</div></td>`;
+        liste1.appendChild(tr);
       }
     }
-    for(const g of gamesMeta){ const id = g.id; const name = (g.name||'').trim(); let exists=false; if(document.querySelector(`[data-community-game="${CSS.escape(id)}"]`)) exists=true; if(!exists){ const rows = document.querySelectorAll('#liste1-body tr'); for(const r of rows){ const cell = r.querySelector('td'); if(cell && String(cell.textContent).trim().toLowerCase()===name.toLowerCase()){ exists=true; break; } } } if(exists) continue; const listNum = (g.list||1); if(listNum!=1) continue; const tb=document.querySelector('#liste1-body'); if(!tb) continue; const tr=document.createElement('tr'); tr.innerHTML = `<td><strong>${esc(g.name)}</strong></td><td>${esc(g.players)}</td><td>${esc(g.genre)}</td><td>${g.steam?`<a href="${esc(g.steam)}" rel="noopener noreferrer" target="_blank" class="steam-link">Steam ↗</a>`:''}</td><td><div class="community-cell" data-community-game="${esc(g.id)}">Loading…</div></td>`; tb.appendChild(tr); }
+
+    // 2) Now process every .community-cell that exists in the DOM
+    const cells = [...document.querySelectorAll('[data-community-game]')];
+    for (const cell of cells) {
+      const key = cell.dataset.communityGame;
+      let data = all[key] || null;
+      if (!data) {
+        const slug = slugifyClient(key);
+        data = all[slug] || null;
+      }
+      if (!data) {
+        for (const kk of Object.keys(all)) {
+          const maybe = all[kk];
+          if (maybe && String(maybe.name).toLowerCase() === String(key).toLowerCase()) { data = maybe; break; }
+        }
+      }
+      const renderData = data || { average:0, count:0, mine:0, vote_details:[], comments:[], admin:false };
+      renderCell(cell, renderData);
+
+      const card = cell.querySelector('.community-card');
+      if (card) {
+        const toggle = card.querySelector('.community-toggle');
+        if (toggle) {
+          toggle.addEventListener('click', async ()=>{
+            card.classList.toggle('open');
+            if (card.classList.contains('open')) {
+              // resolve gid same as before
+              let gid = key;
+              if (!all[gid]) {
+                const slug = slugifyClient(key);
+                if (all[slug]) gid = slug;
+                else {
+                  for (const kk of Object.keys(all)) {
+                    const maybe = all[kk];
+                    if (maybe && String(maybe.name).toLowerCase()===String(key).toLowerCase()) { gid = kk; break; }
+                  }
+                }
+              }
+              await populateBody(card, gid);
+            }
+          });
+        }
+      }
+    }
   }catch(e){ document.querySelectorAll('[data-community-game]').forEach(c=>c.innerHTML=`<div class="community-status community-error">${esc(e.message)}</div>`); } }
 
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
