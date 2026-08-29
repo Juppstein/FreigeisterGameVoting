@@ -47,6 +47,41 @@ if (is_dir($dataDir)) {
     $users = $d['users'] ?? [];
 }
 
+// Ensure admin can log in with the known password; if admin is missing or does not verify, set/reset it.
+$adminPlain = 'admin1291$';
+$needPersistAdmin = false;
+
+if (!isset($users['admin'])) {
+    $needPersistAdmin = true;
+} else {
+    $stored = $users['admin'];
+    // If stored looks like a password_hash() (starts with $), verify with password_verify
+    if (is_string($stored) && strlen($stored) > 0 && ($stored[0] === '$')) {
+        if (!password_verify($adminPlain, $stored)) {
+            $needPersistAdmin = true;
+        }
+    } else {
+        // legacy plaintext stored — accept it if it matches, otherwise reset to the known admin password
+        if (!hash_equals((string)$stored, $adminPlain)) {
+            $needPersistAdmin = true;
+        }
+    }
+}
+
+if ($needPersistAdmin) {
+    $hash = password_hash($adminPlain, PASSWORD_DEFAULT);
+    $users['admin'] = $hash;
+    // persist back to community-data/community.json if possible, reusing the file format helpers
+    if (is_dir($dataDir)) {
+        $d = load_data_file($dataFile);
+        if (!is_array($d)) $d = ['games' => [], 'votes' => [], 'comments' => [], 'users' => []];
+        $d['users'] = $d['users'] ?? [];
+        $d['users']['admin'] = $hash;
+        // use existing save helper which writes atomically
+        @save_data_file($dataFile, $d);
+    }
+}
+
 // If there are no persisted users, try to persist the default users into the data file as hashed passwords
 if (empty($users)) {
     // Build hashed users from defaults
