@@ -20,7 +20,15 @@ function input():array{ $d=json_decode(file_get_contents('php://input')?:'',true
 function game_param($v):string{ $v=trim((string)$v); if($v===''||strlen($v)>160) fail_json('Invalid game name.',400); return $v; }
 function voter():string{return (string)($_SESSION['user']??'');}
 function admin():bool{return ($_SESSION['user']??'')==='admin';}
-function slugify(string $s):string{ $s=mb_strtolower($s,'UTF-8'); $s=preg_replace('/[^a-z0-9]+/u','-', $s); $s=trim($s,'-'); if($s==='') $s=bin2hex(random_bytes(4)); return mb_substr($s,0,60,'UTF-8'); }
+function slugify(string $s):string{
+    // mbstring may not be available; fall back to strtolower
+    $s = (function_exists('mb_strtolower') ? mb_strtolower($s, 'UTF-8') : strtolower($s));
+    // replace any non-alphanumeric with hyphen
+    $s = preg_replace('/[^a-z0-9]+/u', '-', $s);
+    $s = trim($s, '-');
+    if($s === '') $s = bin2hex(random_bytes(4));
+    return substr($s, 0, 60);
+}
 
 function game_data(array $d,string $g):array{
     $ratings=$d['votes'][$g]??[];
