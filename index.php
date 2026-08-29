@@ -16,8 +16,8 @@ th.sortable{cursor:pointer}
 th .sort-ind{margin-left:8px;font-size:.85em;color:#94a3b8}
 td{padding:10px 12px;border-bottom:1px solid #e7eaf0;vertical-align:top}tr:last-child td{border-bottom:0}tbody tr:hover{background:#fafcff}
 .community-cell{min-width:330px;background:#fbfcfe}.community-card{font-size:.92rem}.community-summary{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.community-stars{display:inline-flex;gap:1px}.community-stars button{border:0;background:none;padding:0 2px;font-size:1.35rem;line-height:1;color:#cbd2dc;cursor:pointer}.community-stars button:hover{color:#111}.community-stars button.selected{color:#f59e0b}
-.community-rating{color:#596273;white-space:nowrap}.community-toggle{border:1px solid #cfd6e1;background:#fff;color:#374151;border-radius:7px;padding:4px 8px;cursor:pointer;margin-left:auto}.community-body{display:none;margin-top:10px;padding-top:10px;border-top:1px solid #e5e9ef}.community-card.open .community-body{display:block}
+.community-stars{display:inline-flex;gap:1px}.community-stars button{border:0;background:none;padding:0 2px;font-size:1.35rem;line-height:1;color:#cbd2dc;cursor:pointer}.community-stars button:hover{color:#fbbf24}.community-stars button.selected{color:#fbbf24}
+.community-rating{color:#596273;white-space:nowrap}.community-toggle{border:1px solid #cfd6e1;background:#fff;color:#374151;border-radius:7px;padding:4px 8px;cursor:pointer;margin-left:auto}.community-body{padding:10px 0}
 .community-form{display:grid;gap:7px;margin-bottom:10px}.community-form input,.community-form textarea{font:inherit;width:100%;padding:8px 10px;border:1px solid #cbd2dc;border-radius:7px;background:#fff}
 .community-form button[type=submit]{justify-self:start;border:0;border-radius:7px;padding:7px 11px;background:#2563eb;color:#fff;cursor:pointer}.community-form button[type=submit]:hover{background:#1e40af}
 .community-comment{padding:8px 0;border-top:1px solid #e5eef}.community-comment-meta{font-size:.78rem;color:#6b7280;margin-bottom:2px}.community-comment-text{white-space:pre-wrap;overflow-wrap:anywhere}
@@ -46,7 +46,21 @@ a{color:#2563eb}hr{border:0;border-top:1px solid #dfe3ea;margin:30px 0}
  function slugifyClient(s){ if(!s) return ''; s = String(s).toLowerCase(); s = s.replace(/[^a-z0-9]+/g,'-'); s = s.replace(/^-+|-+$/g,''); return s.slice(0,60); }
  function stars(game,avg,mine){const s=mine||Math.round(Number(avg)||0);return `<div class="community-stars">${[1,2,3,4,5].map(n=>`<button type="button" data-rate="${n}" aria-label="${n} star${n===1?'':'s'}" class="${s>=n?'selected':''}">★</button>`).join('')}</div>`}
  function adminPanel(game,data){if(!data.admin)return '';let votes=(data.vote_details||[]).map(v=>`<div class="admin-item"><span>⭐ ${v.rating} · ${esc(v.id)}</span><button type="button" data-delete-vote="${esc(v.id)}">Delete vote</button></div>`).join('');return `<div class="community-admin"><strong>Admin</strong>${votes||'<div class="community-empty">No votes.</div>'}</div>`}
- function renderCell(cell,data){ const gameKey=cell.dataset.communityGame||''; cell.innerHTML=''; const card=document.createElement('div'); card.className='community-card'; const summary=document.createElement('div'); summary.className='community-summary'; summary.innerHTML=stars(gameKey,data.average,data.mine)+`<span class="community-rating">${Number(data.average||0).toFixed(1)}/5 · ${data.count||0} vote${(data.count||0)===1?'':'s'}</span>`; const toggle=document.createElement('button'); toggle.type='button'; toggle.className='community-toggle'; toggle.textContent=`Comments (${(data.comments||[]).length})`; toggle.addEventListener('click',()=>card.classList.toggle('open')); summary.appendChild(toggle); card.appendChild(summary); const body=document.createElement('div'); body.className='community-body'; card.appendChild(body); cell.appendChild(card);
+ function renderCell(cell,data){ const gameKey=cell.dataset.communityGame||''; cell.innerHTML=''; const card=document.createElement('div'); card.className='community-card'; const summary=document.createElement('div'); summary.className='community-summary'; summary.innerHTML=stars(gameKey,data.average,data.mine)+`<span class="community-rating">${Number(data.average||0).toFixed(1)}/5 · ${data.count||0} vote${(data.count||0)===1?'':'s'}</span>`; const toggle=document.createElement('button'); toggle.type='button'; toggle.className='community-toggle'; toggle.textContent=`Comments (${(data.comments||[]).length})`;
+  // when the toggle is opened, load comments & form
+  toggle.addEventListener('click', async () => {
+    card.classList.toggle('open');
+    if (card.classList.contains('open')) {
+      try {
+        await populateBody(card, gameKey);
+      } catch (err) {
+        const body = card.querySelector('.community-body');
+        if (body) body.innerHTML = `<div style="color:#a00">${esc(err.message)}</div>`;
+      }
+    }
+  });
+
+  summary.appendChild(toggle); card.appendChild(summary); const body=document.createElement('div'); body.className='community-body'; card.appendChild(body); cell.appendChild(card);
   // attach star handlers for voting
   setupStarHandlers(summary, gameKey, data, card);
 }
@@ -63,7 +77,7 @@ async function setupStarHandlers(summaryElement, gameKey, initialData, card){
         const refreshed = await api('game',{body:{game:gameKey}});
         // update summary stars and rating text
         const ratingSpan = summaryElement.querySelector('.community-rating');
-        summaryElement.querySelector('.community-stars').innerHTML = ([1,2,3,4,5].map(x=>`<button type="button" data-rate="${x}" aria-label="${x} star${x===1?'':'s'}" class="${(refreshed.mine||Math.round(refreshed.average||0))>=x?'selected':''}">★</button>`).join(''));
+        summaryElement.querySelector('.community-stars').innerHTML = ([1,2,3,4,5].map(x=>`<button type="button" data-rate="${x}" aria-label="${x} star${x===1?'':'s'}" class="${(refreshed.mine||Math.round(Number(refreshed.average)||0))>=x?'selected':''}">${'★'}</button>`).join(''));
         if(ratingSpan) ratingSpan.textContent = `${Number(refreshed.average||0).toFixed(1)}/5 · ${refreshed.count||0} vote${(refreshed.count||0)===1?'':'s'}`;
         // reattach handlers to new buttons
         setupStarHandlers(summaryElement, gameKey, refreshed, card);
@@ -72,7 +86,7 @@ async function setupStarHandlers(summaryElement, gameKey, initialData, card){
           const body = card.querySelector('.community-body'); if(body) {
             body.innerHTML = '';
             const form=document.createElement('form'); form.className='community-form'; form.innerHTML=`<textarea name="comment" rows="3" placeholder="Write a comment"></textarea><button type="submit">Post comment</button>`;
-            form.addEventListener('submit', async e=>{ e.preventDefault(); const ta=form.querySelector('textarea'); const v=ta.value.trim(); if(!v) return; try{ await api('comment',{body:{game:gameKey,comment:v}}); ta.value=''; const refreshed2=await api('game',{body:{game:gameKey}}); renderCommentSection(body,refreshed2,gameKey); }catch(err){ alert(err.message); } });
+            form.addEventListener('submit', async e=>{ e.preventDefault(); const ta=form.querySelector('textarea'); const v=ta.value.trim(); if(!v) return; try{ await api('comment',{body:{game:gameKey,comment:v}}); ta.value=''; const refreshed2=await api('game',{body:{game:gameKey}}); renderCommentSection(body, refreshed2, gameKey); }catch(err){ alert(err.message); } });
             body.appendChild(form);
             const refreshed2=await api('game',{body:{game:gameKey}});
             renderCommentSection(body, refreshed2, gameKey);
@@ -83,7 +97,13 @@ async function setupStarHandlers(summaryElement, gameKey, initialData, card){
   }
 }
 
-async function populateBody(card, gameId){ const body=card.querySelector('.community-body'); body.innerHTML='Loading…'; try{ const data=await api('game',{body:{game:gameId}}); body.innerHTML=''; const form=document.createElement('form'); form.className='community-form'; form.innerHTML=`<textarea name="comment" rows="3" placeholder="Write a comment"></textarea><button type="submit">Post comment</button>`; form.addEventListener('submit', async e=>{ e.preventDefault(); const ta=form.querySelector('textarea'); const v=ta.value.trim(); if(!v) return; try{ await api('comment',{body:{game:gameId,comment:v}}); ta.value=''; const refreshed=await api('game',{body:{game:gameId}}); renderCommentSection(body,refreshed,gameId); }catch(err){ alert(err.message); } }); body.appendChild(form); const refreshed=await api('game',{body:{game:gameId}}); renderCommentSection(body, refreshed, gameId); }catch(err){ body.innerHTML=`<div style="color:#a00">${esc(err.message)}</div>`; } }
+async function populateBody(card, gameId){ const body=card.querySelector('.community-body'); body.innerHTML='Loading…'; try{ const data=await api('game',{body:{game:gameId}}); body.innerHTML='';
+  // add comment form for logged in users
+  const form=document.createElement('form'); form.className='community-form'; form.innerHTML=`<textarea name="comment" rows="3" placeholder="Write a comment"></textarea><button type="submit">Post comment</button>`;
+  form.addEventListener('submit', async e=>{ e.preventDefault(); const ta=form.querySelector('textarea'); const v=ta.value.trim(); if(!v) return; try{ await api('comment',{body:{game:gameId,comment:v}}); ta.value=''; const refreshed=await api('game',{body:{game:gameId}}); renderCommentSection(body, refreshed, gameId); }catch(err){ alert(err.message); } });
+  body.appendChild(form);
+  renderCommentSection(body, data, gameId);
+ }catch(err){ body.innerHTML=`<div class="community-empty" style="color:#a00">${esc(err.message)}</div>`; } }
 
 function renderCommentSection(body,data,gameId){
   const ratings=(data.vote_details||[]);
@@ -101,10 +121,9 @@ function renderCommentSection(body,data,gameId){
     div.appendChild(textDiv);
 
     const controls=document.createElement('div'); controls.className='community-comment-controls';
-    const currentUserEl = document.querySelector('#current-user'); 
-    const currentUser = currentUserEl ? currentUserEl.textContent : '';
+    const currentUser = document.querySelector('#current-user').textContent;
     if(c.author===currentUser || currentUser==='admin'){
-      const delBtn=document.createElement('button'); delBtn.type='button'; delBtn.style.marginLeft='6px'; delBtn.textContent='Delete'; delBtn.addEventListener('click',async ()=>{ if(!confirm('Delete this comment?')) return; try{ await api('delete_comment',{body:{game:gameId,id:c.id}}); const refreshed=await api('game',{body:{game:gameId}}); renderCommentSection(body,refreshed,gameId); }catch(err){alert(err.message);} });
+      const delBtn=document.createElement('button'); delBtn.type='button'; delBtn.style.marginLeft='6px'; delBtn.textContent='Delete'; delBtn.addEventListener('click',async ()=>{ if(!confirm('Delete this comment?')) return; try{ await api('delete_comment',{body:{game:gameId,id:c.id}}); const refreshed=await api('game',{body:{game:gameId}}); renderCommentSection(body,refreshed,gameId); }catch(err){ alert(err.message); } });
       controls.appendChild(delBtn);
     }
     // Edit button for own comments
@@ -155,7 +174,7 @@ function renderTableRows(gamesArr, allData){
     const id = g.id;
     const data = allData[id]||{};
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td><strong>${esc(g.name)}</strong></td><td>${esc(g.players)}</td><td>${esc(g.genre)}</td><td>${g.steam?`<a href="${esc(g.steam)}" rel="noopener noreferrer" target="_blank" class="steam-link">Steam ↗</a>`:''}</td><td><div class="community-cell" data-community-game="${esc(id)}">Loading…</div></td><td>${esc(g.notes)}</td>`;
+    tr.innerHTML = `<td><strong>${esc(g.name)}</strong></td><td>${esc(g.players)}</td><td>${esc(g.genre)}</td><td>${g.steam?`<a href="${esc(g.steam)}" rel="noopener noreferrer" target="_blank" class="steam-link">Steam</a>`:''}</td><td class="community-cell" data-community-game="${esc(id)}"></td><td>${esc(g.notes)}</td>`;
     tb.appendChild(tr);
   }
 }
@@ -169,7 +188,7 @@ async function init(){
 
     // build combined games array from gamesMeta, but include entries from all as well
     const gamesMap = {};
-    for(const g of gamesMeta){ gamesMap[String(g.id)] = { id:String(g.id), name:String(g.name||''), players:String(g.players||''), genre:String(g.genre||''), steam:String(g.steam||''), notes:String(g.notes||''), list:(g.list||1) }; }
+    for(const g of gamesMeta){ gamesMap[String(g.id)] = { id:String(g.id), name:String(g.name||''), players:String(g.players||''), genre:String(g.genre||''), steam:String(g.steam||''), notes:String(g.notes||''), list:Number(g.list||1) } }
     // also include games referenced in 'all' that might not be in gamesMeta (older entries)
     for(const k of Object.keys(all)){
       if(k.startsWith('__')) continue;
@@ -252,7 +271,7 @@ async function init(){
 
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
-</script></head><body><main><div class="userbar">Logged in as <strong id="current-user">…</strong><span class="userbar-sep"> · </span><a href="logout.php">Log out</a><?php if(($_SESSION['user']??'')==='admin'){ echo '<span class="userbar-sep"> · </span><a href="admin.php">Admin</a>'; } ?><span style="margin-left:10px"></span></div>
+</script></head><body><main><div class="userbar">Logged in as <strong id="current-user">…</strong><span class="userbar-sep"> · </span><a href="logout.php">Log out</a><span style="margin-left:1rem"></span></div>
 <h1>Games für die Freigeister</h1>
 <p class="intro">Community ratings and comments. Click the comments button for a game's card to read and post comments and see individual ratings.</p>
 <h2>Liste 1</h2>
