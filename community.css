@@ -1,0 +1,11 @@
+
+.steam-link {
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.steam-link:hover {
+  text-decoration: underline;
+}
+.userbar{display:flex;justify-content:flex-end;gap:8px;align-items:center;margin-bottom:16px;font-size:.92rem}.userbar a{font-weight:600}.login-page{background:#f5f7fb}.login-card{max-width:420px;background:#fff;margin:8vh auto;padding:30px;border:1px solid #dfe3ea;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06)}.login-card h1{font-size:1.7rem}.login-card h2{margin-top:24px}.login-card form{display:grid;gap:14px}.login-card label{display:grid;gap:6px;font-weight:600}.login-card input{font:inherit;padding:10px;border:1px solid #cbd2dc;border-radius:7px}.login-card button{border:0;border-radius:7px;padding:10px 14px;background:#2563eb;color:#fff;font-weight:600;cursor:pointer}.login-error{color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;padding:9px;border-radius:7px}.notes-community{min-width:360px}.community-cell{margin-top:10px;padding-top:9px;border-top:1px solid #e5e9ef}.community-card{font-size:.92rem}.admin-panel{margin-top:14px;padding:10px;background:#fff8e1;border:1px solid #f0d98a;border-radius:8px}.admin-sub{font-weight:600;margin-top:6px}.admin-item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:5px 0;border-top:1px solid #f0e4b5}.admin-item button,.admin-delete{border:1px solid #d1d5db;background:#fff;color:#991b1b;border-radius:5px;padding:3px 7px;cursor:pointer;font-size:.78rem}.admin-delete{margin-left:7px}
