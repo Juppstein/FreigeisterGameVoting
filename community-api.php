@@ -8,10 +8,36 @@ if (empty($_SESSION['user'])) { http_response_code(401); echo json_encode(['erro
 
 $dataDir=__DIR__.'/community-data'; $dataFile=$dataDir.'/community.json';
 function fail_json(string $message,int $status=500):never{http_response_code($status);echo json_encode(['error'=>$message],JSON_UNESCAPED_UNICODE);exit;}
-if(!is_dir($dataDir)&&!mkdir($dataDir,0755,true))fail_json('Could not create community-data directory.');
+if (!is_dir($dataDir) && !mkdir($dataDir, 0755, true)) {
+    fail_json('Could not create community-data directory.');
+}
 if(!is_writable($dataDir))fail_json('Community data directory is not writable by PHP.');
 function load_data(string $file):array{ if(!file_exists($file)) return ['games'=>[],'votes'=>[],'comments'=>[],'users'=>[]]; $raw=@file_get_contents($file); if($raw===false||$raw==='') return ['games'=>[],'votes'=>[],'comments'=>[],'users'=>[]]; $d=@json_decode($raw,true); if(!is_array($d)) return ['games'=>[],'votes'=>[],'comments'=>[],'users'=>[]]; if(!isset($d['games'])||!is_array($d['games'])) $d['games']=[]; if(!isset($d['votes'])||!is_array($d['votes'])) $d['votes']=[]; if(!isset($d['comments'])||!is_array($d['comments'])) $d['comments']=[]; if(!isset($d['users'])||!is_array($d['users'])) $d['users']=[]; return $d; }
-function save_data(string $file,array $data):void{ $tmp=$file.'.tmp-'.bin2hex(random_bytes(5)); $raw=json_encode($data,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT); if(@file_put_contents($tmp,$raw,LOCK_EX)===false) fail_json('Failed to write data file.',500); if(!@rename($tmp,$file)) { @unlink($tmp); fail_json('Failed to replace data file.',500); } }
+function save_data(string $file, array $data): void {
+    $dir = dirname($file);
+    if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
+        fail_json('Could not create community-data directory (save).');
+    }
+    if (!is_writable($dir)) {
+        fail_json('Community data directory is not writable by PHP.', 500);
+    }
+
+    $tmp = $file . '.tmp-' . bin2hex(random_bytes(5));
+    $raw = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    if ($raw === false) {
+        fail_json('Could not encode community data as JSON.', 500);
+    }
+    // write atomically with exclusive lock
+    $bytes = @file_put_contents($tmp, $raw, LOCK_EX);
+    if ($bytes === false) {
+        @unlink($tmp);
+        fail_json('Could not write community data file.', 500);
+    }
+    if (!@rename($tmp, $file)) {
+        @unlink($tmp);
+        fail_json('Could not install community data file.', 500);
+    }
+}
 function input():array{ $d=json_decode(file_get_contents('php://input')?:'',true); return is_array($d)?$d:[]; }
 function game_param($v):string{ $v=trim((string)$v); if($v===''||strlen($v)>160) fail_json('Invalid game name.',400); return $v; }
 function voter():string{return (string)($_SESSION['user']??'');}
