@@ -25,6 +25,9 @@ function load_data_file(string $file): array {
     $d = @json_decode($raw, true);
     if (!is_array($d)) return ['games' => [], 'votes' => [], 'comments' => [], 'users' => []];
     if (!isset($d['users']) || !is_array($d['users'])) $d['users'] = [];
+    if (!isset($d['votes']) || !is_array($d['votes'])) $d['votes'] = [];
+    if (!isset($d['comments']) || !is_array($d['comments'])) $d['comments'] = [];
+    if (!isset($d['games']) || !is_array($d['games'])) $d['games'] = [];
     return $d;
 }
 
@@ -38,13 +41,31 @@ function save_data_file(string $file, array $data): bool {
 
 $error = '';
 $users = [];
+$d = ['games' => [], 'votes' => [], 'comments' => [], 'users' => []];
 if (is_dir($dataDir)) {
     $d = load_data_file($dataFile);
     $users = $d['users'] ?? [];
 }
-// If there are no persisted users, fall back to defaults (non-persistent) so initial login still works.
+
+// If there are no persisted users, try to persist the default users into the data file as hashed passwords
 if (empty($users)) {
-    $users = $defaultUsers;
+    // Build hashed users from defaults
+    $hashed = [];
+    foreach ($defaultUsers as $u => $pw) {
+        $hashed[$u] = password_hash($pw, PASSWORD_DEFAULT);
+    }
+    $d['users'] = $hashed;
+    // ensure other keys exist
+    if (!isset($d['games']) || !is_array($d['games'])) $d['games'] = [];
+    if (!isset($d['votes']) || !is_array($d['votes'])) $d['votes'] = [];
+    if (!isset($d['comments']) || !is_array($d['comments'])) $d['comments'] = [];
+    // attempt to save; if it fails, fall back to in-memory defaults so login still works
+    if (!save_data_file($dataFile, $d)) {
+        // fallback to plaintext defaults in-memory (migration on login is supported)
+        $users = $defaultUsers;
+    } else {
+        $users = $d['users'];
+    }
 }
 
 // Helper: check password, support hashed or legacy-plaintext
