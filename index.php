@@ -274,16 +274,16 @@ async function init(){
 </script></head><body><main><div class="userbar">Logged in as <strong id="current-user">…</strong><span class="userbar-sep"> · </span><a href="logout.php">Log out</a><?php if(($_SESSION['user']??'')==='admin'){ echo '<span class="userbar-sep"> · </span><a href="admin.php">Admin</a>'; } ?><span style="margin-left:1rem"></span></div>
 <h1>Games für die Freigeister</h1>
 <p class="intro">Bewertungen und Kommentare. Klickt auf die Schaltfläche „Kommentare“ auf der Spielkarte, um Kommentare zu lesen und zu verfassen sowie die individuellen Bewertungen zu setzen oder anzuzeigen..</p>
-<h2>Liste 1</h2>
+<h2>Die Grosse Freigeister Spieleliste - Endlose Möglichkeiten</h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
-<th id="th-game">Game <span class="sort-ind"></span></th>
-<th>Max players / relevant mode</th>
+<th id="th-game">Spiel <span class="sort-ind"></span></th>
+<th>Anzahl Spieler</th>
 <th id="th-genre">Genre <span class="sort-ind"></span></th>
 <th>Steam</th>
-<th id="th-rating">Rating <span class="sort-ind"></span></th>
-<th>Notes</th>
+<th id="th-rating">Wertung <span class="sort-ind"></span></th>
+<th>Notizen</th>
 </tr>
 </thead>
 <tbody id="liste1-body">
@@ -292,3 +292,4 @@ async function init(){
 </table></div>
 
 </body></html>
+
