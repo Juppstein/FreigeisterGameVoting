@@ -13,15 +13,6 @@ Requirements:
 - Apache with PHP 8+ enabled.
 - No database and no mbstring extension are required.
 
-Users:
-Markus / Markus1291
-Sandra / Sandra1291
-Eric / Eric1291
-Franzi / Franzi1291
-Armin / Armin1291
-Thorsten / Thorsten1291
-admin / admin1291$
-
 The admin user can delete individual comments and individual votes from the community section.
 
 Permissions:
