@@ -1,63 +1,510 @@
 {
-  "games": {
-    "valheim": {"id":"valheim","name":"Valheim","players":"10","genre":"Survival / RPG","steam":"https://store.steampowered.com/app/892970/Valheim/","notes":"","list":1},
-    "enshrouded": {"id":"enshrouded","name":"Enshrouded","players":"16","genre":"Survival elements / Action RPG","steam":"https://store.steampowered.com/app/1203620/Enshrouded/","notes":"","list":1},
-    "barotrauma": {"id":"barotrauma","name":"Barotrauma","players":"16","genre":"2D Co-op survival / submarine","steam":"https://store.steampowered.com/app/602960/Barotrauma/","notes":"","list":1},
-    "r-e-p-o": {"id":"r-e-p-o","name":"R.E.P.O.","players":"6","genre":"Horror / Co-op","steam":"https://store.steamp.com/app/3241660/REPO/","notes":"","list":1},
-    "project-zomboid": {"id":"project-zomboid","name":"Project Zomboid","players":"32+","genre":"Zombie survival / simulation","steam":"https://store.steampowered.com/app/108600/Project_Zomboid/","notes":"","list":1},
-    "sons-of-the-forest": {"id":"sons-of-the-forest","name":"Sons of the Forest","players":"8","genre":"Survival / horror","steam":"https://store.steampowered.com/app/1326470/Sons_of_the_Forest/","notes":"","list":1},
-    "terraria": {"id":"terraria","name":"Terraria","players":"8+","genre":"Sandbox / RPG","steam":"https://store.steampowered.com/app/105600/Terraria/","notes":"","list":1},
-    "core-keeper": {"id":"core-keeper","name":"Core Keeper","players":"2-8","genre":"Survival / RPG","steam":"https://store.steampowered.com/app/1621690/Core_Keeper/","notes":"","list":1},
-    "conan-exiles": {"id":"conan-exiles","name":"Conan Exiles","players":"40+","genre":"Survival / RPG","steam":"https://store.steampowered.com/app/440900/Conan_Exiles/","notes":"","list":1},
-    "ark-survival-ascended": {"id":"ark-survival-ascended","name":"ARK: Survival Ascended","players":"8 private / 70 public","genre":"Survival / dinosaurs","steam":"https://store.steampowered.com/app/2399830/ARK_Survival_Ascended/","notes":"","list":1},
-    "factorio": {"id":"factorio","name":"Factorio","players":"6+","genre":"Factory / strategy","steam":"https://store.steampowered.com/app/427520/Factorio/","notes":"","list":1},
-    "satisfactory": {"id":"satisfactory","name":"Satisfactory","players":"6+","genre":"Factory / exploration","steam":"https://store.steampowered.com/app/526870/Satisfactory/","notes":"","list":1},
-    "dont-starve-together": {"id":"dont-starve-together","name":"Don't Starve Together","players":"6+","genre":"Survival","steam":"https://store.steampowered.com/app/322330/Dont_Starve_Together/","notes":"","list":1},
-    "palworld": {"id":"palworld","name":"Palworld","players":"32 dedicated server","genre":"Survival / creature collection","steam":"https://store.steampowered.com/app/1623730/Palworld/","notes":"","list":1},
-    "destiny-2": {"id":"destiny-2","name":"Destiny 2","players":"6-person activities","genre":"FPS / MMO","steam":"https://store.steampowered.com/app/1085660/Destiny_2/","notes":"delisted","list":1},
-    "final-fantasy-xiv": {"id":"final-fantasy-xiv","name":"Final Fantasy XIV","players":"4/8-person parties / larger raids","genre":"MMORPG","steam":"https://store.steampowered.com/app/39210/FINAL_FANTASY_XIV_Online/","notes":"","list":1},
-    "the-elder-scrolls-online": {"id":"the-elder-scrolls-online","name":"The Elder Scrolls Online","players":"4 / 12","genre":"MMORPG","steam":"https://store.steampowered.com/app/306130/The_Elder_Scrolls_Online/","notes":"","list":1},
-    "world-of-warcraft": {"id":"world-of-warcraft","name":"World of Warcraft","players":"5","genre":"MMORPG","steam":"","notes":"No Steam version","list":1},
-    "killing-floor-3": {"id":"killing-floor-3","name":"Killing Floor 3","players":"6","genre":"PvE FPS","steam":"https://store.steampowered.com/app/1430190/Killing_Floor_3/","notes":"","list":1},
-    "v-rising": {"id":"v-rising","name":"V Rising","players":"40+ private server","genre":"Survival / action RPG","steam":"https://store.steampowered.com/app/1604030/V_Rising/","notes":"","list":1},
-    "grounded": {"id":"grounded","name":"Grounded","players":"4 normally / larger dedicated setups","genre":"Survival","steam":"https://store.steampowered.com/app/962130/Grounded/","notes":"delisted","list":1},
-    "eco": {"id":"eco","name":"Eco","players":"Large servers","genre":"Survival / civilization","steam":"https://store.steampowered.com/app/382310/Eco/","notes":"","list":1},
-    "raft": {"id":"raft","name":"Raft","players":"8","genre":"Survival / exploration","steam":"https://store.steampowered.com/app/648800/Raft/","notes":"","list":1},
-    "astroneer": {"id":"astroneer","name":"Astroneer","players":"8","genre":"Space exploration / survival","steam":"https://store.steampowered.com/app/361420/ASTRONEER/","notes":"","list":1},
-    "space-engineers": {"id":"space-engineers","name":"Space Engineers","players":"Large dedicated servers","genre":"Space sandbox / engineering","steam":"https://store.steampowered.com/app/244850/Space_Engineers/","notes":"","list":1},
-    "7-days-to-die": {"id":"7-days-to-die","name":"7 Days to Die","players":"8+","genre":"Zombie survivalcraft","steam":"https://store.steampowered.com/app/251570/7_Days_to_Die/","notes":"","list":1},
-    "backrooms-escape-together": {"id":"backrooms-escape-together","name":"Backrooms: Escape Together","players":"6","genre":"Horror / exploration","steam":"https://store.steampowered.com/app/2141730/Backrooms_Escape_Together/","notes":"","list":1},
-    "the-isle": {"id":"the-isle","name":"The Isle","players":"Large servers","genre":"Dinosaur survival","steam":"https://store.steampowered.com/app/376210/The_Isle/","notes":"","list":1},
-    "foxhole": {"id":"foxhole","name":"Foxhole","players":"Hundreds","genre":"MMO / war strategy","steam":"https://store.steampowered.com/app/505460/Foxhole/","notes":"","list":1},
-    "dune-awakening": {"id":"dune-awakening","name":"Dune Awakening","players":"6+","genre":"Action, Adventure, Massively Multiplayer, RPG","steam":"https://store.steampowered.com/app/1172710/Dune_Awakening/","notes":"","list":1},
-    "fallout-76": {"id":"fallout-76","name":"Fallout 76","players":"8 on private server","genre":"Action, Multiplayer, RPG","steam":"https://store.steampowered.com/app/1151340/Fallout_76/","notes":"","list":1},
-    "big-walk": {"id":"big-walk","name":"Big Walk","players":"6+","genre":"Action, Adventure, Talking","steam":"https://store.steampowered.com/app/1478500/Big_Walk/","notes":"","list":1},
-    "warhammer-40k-darktide": {"id":"warhammer-40k-darktide","name":"Warhammer 40 k Darktide","players":"6","genre":"Action","steam":"https://store.steampowered.com/app/1361210/Warhammer_40000_Darktide/","notes":"","list":1},
-    "marvel-rivals": {"id":"marvel-rivals","name":"Marvel Rivals","players":"6 non ranked","genre":"MOBA Action","steam":"https://store.steampowered.com/app/2767030/Marvel_Rivals/","notes":"","list":1},
-    "runescape-dragonwilds": {"id":"runescape-dragonwilds","name":"Runescape Dragonwilds","players":"4-6","genre":"Open World Action RPG","steam":"https://store.steampowered.com/app/1374490/RuneScape_Dragonwilds/","notes":"","list":1},
-    "foundry-virtual-tabletop": {"id":"foundry-virtual-tabletop","name":"Foundry Virtual Tabletop","players":"","genre":"Digital Tabletop RPG Server","steam":"","notes":"no Steam Page","list":1},
-    "palworld-2": {"id":"palworld-2","name":"Palworld","players":"5+ private servers","genre":"Large-scale casual co-op sandbox","steam":"https://store.steampowered.com/app/1623730/Palworld/","notes":"","list":1},
-    "nightingale": {"id":"nightingale","name":"Nightingale","players":"6","genre":"Realm-based cooperative survival","steam":"https://store.steampowered.com/app/1928980/Nightingale/","notes":"","list":1},
-    "deep-rock-galactic": {"id":"deep-rock-galactic","name":"Deep Rock Galactic","players":"6","genre":"Horde, Graben-Entdecken-Flüchten","steam":"https://store.steampowered.com/app/548430/Deep_Rock_Galactic/","notes":"","list":1},
-    "warhammer-40k-rogue-trader": {"id":"warhammer-40k-rogue-trader","name":"Warhammer 40K Rogue Trader","players":"6","genre":"Ähnlich Baldurs Gate 3, nur Warhammer","steam":"https://store.steampowered.com/app/2186680/Warhammer_40000_Rogue_Trader/","notes":"","list":1},
-    "void-crew": {"id":"void-crew","name":"Void Crew","players":"2-6","genre":"Space Multi-Crew Ship Salvage & Combat","steam":"https://store.steampowered.com/app/1063420/Void_Crew/","notes":"","list":1},
-    "deadlock": {"id":"deadlock","name":"Deadlock","players":"6 v 6","genre":"Like TF 2?","steam":"https://store.steampowered.com/app/1422450/Deadlock/","notes":"","list":1},
-
-    "everquest-ii": {"id":"everquest-ii","name":"EverQuest II","players":"","genre":"MMO","steam":"","notes":"No Steam version","list":2},
-    "the-lord-of-the-rings-online": {"id":"the-lord-of-the-rings-online","name":"The Lord of the Rings Online","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/212500/the_lord_of_the_rings_online/","notes":"","list":2},
-    "final-fantasy-xiv-2": {"id":"final-fantasy-xiv-2","name":"Final Fantasy XIV","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/39210/FINAL_FANTASY_XIV_Online/","notes":"","list":2},
-    "the-elder-scrolls-online-2": {"id":"the-elder-scrolls-online-2","name":"The Elder Scrolls Online","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/306130/The_Elder_Scrolls_Online/","notes":"","list":2},
-    "guild-wars-2": {"id":"guild-wars-2","name":"Guild Wars 2","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/1284210/Guild_Wars_2/","notes":"","list":2},
-    "eve-online": {"id":"eve-online","name":"EVE Online","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/8500/EVE_Online/","notes":"","list":2},
-    "old-school-runescape": {"id":"old-school-runescape","name":"Old School RuneScape","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/1343370/Old_School_RuneScape/","notes":"","list":2},
-    "albion-online": {"id":"albion-online","name":"Albion Online","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/761890/Albion_Online/","notes":"","list":2},
-    "star-wars-the-old-republic": {"id":"star-wars-the-old-republic","name":"Star Wars: The Old Republic","players":"","genre":"MMO","steam":"","notes":"No Steam version","list":2},
-    "lost-ark": {"id":"lost-ark","name":"Lost Ark","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/1599340/Lost_Ark/","notes":"","list":2},
-    "ashes-of-creation": {"id":"ashes-of-creation","name":"Ashes of Creation","players":"","genre":"MMO","steam":"","notes":"","list":2},
-    "throne-of-liberty": {"id":"throne-of-liberty","name":"Throne of Liberty","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/2429640/Throne_and_Liberty/","notes":"","list":2},
-    "pantheon-rise-of-the-fallen": {"id":"pantheon-rise-of-the-fallen","name":"Pantheon Rise of the Fallen","players":"","genre":"MMO","steam":"https://store.steampowered.com/app/3107230/Pantheon_Rise_of_the_Fallen/","notes":"","list":2},
-    "monsters-and-memories": {"id":"monsters-and-memories","name":"Monsters and Memories","players":"","genre":"MMO","steam":"","notes":"","list":2}
-  },
-  "votes": {},
-  "comments": {}
+    "games": {
+        "valheim": {
+            "id": "valheim",
+            "name": "Valheim",
+            "players": "10",
+            "genre": "Survival \/ RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/892970\/Valheim\/",
+            "notes": "",
+            "list": 1
+        },
+        "enshrouded": {
+            "id": "enshrouded",
+            "name": "Enshrouded",
+            "players": "16",
+            "genre": "Survival elements \/ Action RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/1203620\/Enshrouded\/",
+            "notes": "",
+            "list": 1
+        },
+        "barotrauma": {
+            "id": "barotrauma",
+            "name": "Barotrauma",
+            "players": "16",
+            "genre": "2D Co-op survival \/ submarine",
+            "steam": "https:\/\/store.steampowered.com\/app\/602960\/Barotrauma\/",
+            "notes": "",
+            "list": 1
+        },
+        "r-e-p-o": {
+            "id": "r-e-p-o",
+            "name": "R.E.P.O.",
+            "players": "6",
+            "genre": "Horror \/ Co-op",
+            "steam": "https:\/\/store.steamp.com\/app\/3241660\/REPO\/",
+            "notes": "",
+            "list": 1
+        },
+        "project-zomboid": {
+            "id": "project-zomboid",
+            "name": "Project Zomboid",
+            "players": "32+",
+            "genre": "Zombie survival \/ simulation",
+            "steam": "https:\/\/store.steampowered.com\/app\/108600\/Project_Zomboid\/",
+            "notes": "",
+            "list": 1
+        },
+        "sons-of-the-forest": {
+            "id": "sons-of-the-forest",
+            "name": "Sons of the Forest",
+            "players": "8",
+            "genre": "Survival \/ horror",
+            "steam": "https:\/\/store.steampowered.com\/app\/1326470\/Sons_of_the_Forest\/",
+            "notes": "",
+            "list": 1
+        },
+        "terraria": {
+            "id": "terraria",
+            "name": "Terraria",
+            "players": "8+",
+            "genre": "Sandbox \/ RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/105600\/Terraria\/",
+            "notes": "",
+            "list": 1
+        },
+        "core-keeper": {
+            "id": "core-keeper",
+            "name": "Core Keeper",
+            "players": "2-8",
+            "genre": "Survival \/ RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/1621690\/Core_Keeper\/",
+            "notes": "",
+            "list": 1
+        },
+        "conan-exiles": {
+            "id": "conan-exiles",
+            "name": "Conan Exiles",
+            "players": "40+",
+            "genre": "Survival \/ RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/440900\/Conan_Exiles\/",
+            "notes": "",
+            "list": 1
+        },
+        "ark-survival-ascended": {
+            "id": "ark-survival-ascended",
+            "name": "ARK: Survival Ascended",
+            "players": "8 private \/ 70 public",
+            "genre": "Survival \/ dinosaurs",
+            "steam": "https:\/\/store.steampowered.com\/app\/2399830\/ARK_Survival_Ascended\/",
+            "notes": "",
+            "list": 1
+        },
+        "factorio": {
+            "id": "factorio",
+            "name": "Factorio",
+            "players": "6+",
+            "genre": "Factory \/ strategy",
+            "steam": "https:\/\/store.steampowered.com\/app\/427520\/Factorio\/",
+            "notes": "",
+            "list": 1
+        },
+        "satisfactory": {
+            "id": "satisfactory",
+            "name": "Satisfactory",
+            "players": "6+",
+            "genre": "Factory \/ exploration",
+            "steam": "https:\/\/store.steampowered.com\/app\/526870\/Satisfactory\/",
+            "notes": "",
+            "list": 1
+        },
+        "dont-starve-together": {
+            "id": "dont-starve-together",
+            "name": "Don't Starve Together",
+            "players": "6+",
+            "genre": "Survival",
+            "steam": "https:\/\/store.steampowered.com\/app\/322330\/Dont_Starve_Together\/",
+            "notes": "",
+            "list": 1
+        },
+        "palworld": {
+            "id": "palworld",
+            "name": "Palworld",
+            "players": "32 dedicated server",
+            "genre": "Survival \/ creature collection",
+            "steam": "https:\/\/store.steampowered.com\/app\/1623730\/Palworld\/",
+            "notes": "",
+            "list": 1
+        },
+        "destiny-2": {
+            "id": "destiny-2",
+            "name": "Destiny 2",
+            "players": "6-person activities",
+            "genre": "FPS \/ MMO",
+            "steam": "https:\/\/store.steampowered.com\/app\/1085660\/Destiny_2\/",
+            "notes": "delisted",
+            "list": 1
+        },
+        "final-fantasy-xiv": {
+            "id": "final-fantasy-xiv",
+            "name": "Final Fantasy XIV",
+            "players": "4\/8-person parties \/ larger raids",
+            "genre": "MMORPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/39210\/FINAL_FANTASY_XIV_Online\/",
+            "notes": "",
+            "list": 1
+        },
+        "the-elder-scrolls-online": {
+            "id": "the-elder-scrolls-online",
+            "name": "The Elder Scrolls Online",
+            "players": "4 \/ 12",
+            "genre": "MMORPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/306130\/The_Elder_Scrolls_Online\/",
+            "notes": "",
+            "list": 1
+        },
+        "world-of-warcraft": {
+            "id": "world-of-warcraft",
+            "name": "World of Warcraft",
+            "players": "5",
+            "genre": "MMORPG",
+            "steam": "",
+            "notes": "No Steam version",
+            "list": 1
+        },
+        "killing-floor-3": {
+            "id": "killing-floor-3",
+            "name": "Killing Floor 3",
+            "players": "6",
+            "genre": "PvE FPS",
+            "steam": "https:\/\/store.steampowered.com\/app\/1430190\/Killing_Floor_3\/",
+            "notes": "",
+            "list": 1
+        },
+        "v-rising": {
+            "id": "v-rising",
+            "name": "V Rising",
+            "players": "40+ private server",
+            "genre": "Survival \/ action RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/1604030\/V_Rising\/",
+            "notes": "",
+            "list": 1
+        },
+        "grounded": {
+            "id": "grounded",
+            "name": "Grounded",
+            "players": "4 normally \/ larger dedicated setups",
+            "genre": "Survival",
+            "steam": "https:\/\/store.steampowered.com\/app\/962130\/Grounded\/",
+            "notes": "delisted",
+            "list": 1
+        },
+        "eco": {
+            "id": "eco",
+            "name": "Eco",
+            "players": "Large servers",
+            "genre": "Survival \/ civilization",
+            "steam": "https:\/\/store.steampowered.com\/app\/382310\/Eco\/",
+            "notes": "",
+            "list": 1
+        },
+        "raft": {
+            "id": "raft",
+            "name": "Raft",
+            "players": "8",
+            "genre": "Survival \/ exploration",
+            "steam": "https:\/\/store.steampowered.com\/app\/648800\/Raft\/",
+            "notes": "",
+            "list": 1
+        },
+        "astroneer": {
+            "id": "astroneer",
+            "name": "Astroneer",
+            "players": "8",
+            "genre": "Space exploration \/ survival",
+            "steam": "https:\/\/store.steampowered.com\/app\/361420\/ASTRONEER\/",
+            "notes": "",
+            "list": 1
+        },
+        "space-engineers": {
+            "id": "space-engineers",
+            "name": "Space Engineers",
+            "players": "Large dedicated servers",
+            "genre": "Space sandbox \/ engineering",
+            "steam": "https:\/\/store.steampowered.com\/app\/244850\/Space_Engineers\/",
+            "notes": "",
+            "list": 1
+        },
+        "7-days-to-die": {
+            "id": "7-days-to-die",
+            "name": "7 Days to Die",
+            "players": "8+",
+            "genre": "Zombie survivalcraft",
+            "steam": "https:\/\/store.steampowered.com\/app\/251570\/7_Days_to_Die\/",
+            "notes": "",
+            "list": 1
+        },
+        "backrooms-escape-together": {
+            "id": "backrooms-escape-together",
+            "name": "Backrooms: Escape Together",
+            "players": "6",
+            "genre": "Horror \/ exploration",
+            "steam": "https:\/\/store.steampowered.com\/app\/2141730\/Backrooms_Escape_Together\/",
+            "notes": "",
+            "list": 1
+        },
+        "the-isle": {
+            "id": "the-isle",
+            "name": "The Isle",
+            "players": "Large servers",
+            "genre": "Dinosaur survival",
+            "steam": "https:\/\/store.steampowered.com\/app\/376210\/The_Isle\/",
+            "notes": "",
+            "list": 1
+        },
+        "foxhole": {
+            "id": "foxhole",
+            "name": "Foxhole",
+            "players": "Hundreds",
+            "genre": "MMO \/ war strategy",
+            "steam": "https:\/\/store.steampowered.com\/app\/505460\/Foxhole\/",
+            "notes": "",
+            "list": 1
+        },
+        "dune-awakening": {
+            "id": "dune-awakening",
+            "name": "Dune Awakening",
+            "players": "6+",
+            "genre": "Action, Adventure, Massively Multiplayer, RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/1172710\/Dune_Awakening\/",
+            "notes": "",
+            "list": 1
+        },
+        "fallout-76": {
+            "id": "fallout-76",
+            "name": "Fallout 76",
+            "players": "8 on private server",
+            "genre": "Action, Multiplayer, RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/1151340\/Fallout_76\/",
+            "notes": "",
+            "list": 1
+        },
+        "big-walk": {
+            "id": "big-walk",
+            "name": "Big Walk",
+            "players": "6+",
+            "genre": "Action, Adventure, Talking",
+            "steam": "https:\/\/store.steampowered.com\/app\/1478500\/Big_Walk\/",
+            "notes": "",
+            "list": 1
+        },
+        "warhammer-40k-darktide": {
+            "id": "warhammer-40k-darktide",
+            "name": "Warhammer 40 k Darktide",
+            "players": "6",
+            "genre": "Action",
+            "steam": "https:\/\/store.steampowered.com\/app\/1361210\/Warhammer_40000_Darktide\/",
+            "notes": "",
+            "list": 1
+        },
+        "marvel-rivals": {
+            "id": "marvel-rivals",
+            "name": "Marvel Rivals",
+            "players": "6 non ranked",
+            "genre": "MOBA Action",
+            "steam": "https:\/\/store.steampowered.com\/app\/2767030\/Marvel_Rivals\/",
+            "notes": "",
+            "list": 1
+        },
+        "runescape-dragonwilds": {
+            "id": "runescape-dragonwilds",
+            "name": "Runescape Dragonwilds",
+            "players": "4-6",
+            "genre": "Open World Action RPG",
+            "steam": "https:\/\/store.steampowered.com\/app\/1374490\/RuneScape_Dragonwilds\/",
+            "notes": "",
+            "list": 1
+        },
+        "foundry-virtual-tabletop": {
+            "id": "foundry-virtual-tabletop",
+            "name": "Foundry Virtual Tabletop",
+            "players": "",
+            "genre": "Digital Tabletop RPG Server",
+            "steam": "",
+            "notes": "no Steam Page",
+            "list": 1
+        },
+        "palworld-2": {
+            "id": "palworld-2",
+            "name": "Palworld",
+            "players": "5+ private servers",
+            "genre": "Large-scale casual co-op sandbox",
+            "steam": "https:\/\/store.steampowered.com\/app\/1623730\/Palworld\/",
+            "notes": "",
+            "list": 1
+        },
+        "nightingale": {
+            "id": "nightingale",
+            "name": "Nightingale",
+            "players": "6",
+            "genre": "Realm-based cooperative survival",
+            "steam": "https:\/\/store.steampowered.com\/app\/1928980\/Nightingale\/",
+            "notes": "",
+            "list": 1
+        },
+        "deep-rock-galactic": {
+            "id": "deep-rock-galactic",
+            "name": "Deep Rock Galactic",
+            "players": "6",
+            "genre": "Horde, Graben-Entdecken-Flüchten",
+            "steam": "https:\/\/store.steampowered.com\/app\/548430\/Deep_Rock_Galactic\/",
+            "notes": "",
+            "list": 1
+        },
+        "warhammer-40k-rogue-trader": {
+            "id": "warhammer-40k-rogue-trader",
+            "name": "Warhammer 40K Rogue Trader",
+            "players": "6",
+            "genre": "Ähnlich Baldurs Gate 3, nur Warhammer",
+            "steam": "https:\/\/store.steampowered.com\/app\/2186680\/Warhammer_40000_Rogue_Trader\/",
+            "notes": "",
+            "list": 1
+        },
+        "void-crew": {
+            "id": "void-crew",
+            "name": "Void Crew",
+            "players": "2-6",
+            "genre": "Space Multi-Crew Ship Salvage & Combat",
+            "steam": "https:\/\/store.steampowered.com\/app\/1063420\/Void_Crew\/",
+            "notes": "",
+            "list": 1
+        },
+        "deadlock": {
+            "id": "deadlock",
+            "name": "Deadlock",
+            "players": "6 v 6",
+            "genre": "Like TF 2?",
+            "steam": "https:\/\/store.steampowered.com\/app\/1422450\/Deadlock\/",
+            "notes": "",
+            "list": 1
+        },
+        "everquest-ii": {
+            "id": "everquest-ii",
+            "name": "EverQuest II",
+            "players": "6-player group",
+            "genre": "",
+            "steam": "",
+            "notes": "No Steam version",
+            "list": 1
+        },
+        "the-lord-of-the-rings-online": {
+            "id": "the-lord-of-the-rings-online",
+            "name": "The Lord of the Rings Online",
+            "players": "6-player Fellowship",
+            "genre": "",
+            "steam": "https:\/\/store.steampowered.com\/app\/212500\/the_lord_of_the_rings_online\/",
+            "notes": "",
+            "list": 1
+        },
+        "final-fantasy-xiv-2": {
+            "id": "final-fantasy-xiv-2",
+            "name": "Final Fantasy XIV",
+            "players": "4\/8-player party",
+            "genre": "",
+            "steam": "https:\/\/store.steampowered.com\/app\/39210\/FINAL_FANTASY_XIV_Online\/",
+            "notes": "",
+            "list": 1
+        },
+        "the-elder-scrolls-online-2": {
+            "id": "the-elder-scrolls-online-2",
+            "name": "The Elder Scrolls Online",
+            "players": "4-player groups \/ 12-player Trials",
+            "genre": "",
+            "steam": "https:\/\/store.steampowered.com\/app\/306130\/The_Elder_Scrolls_Online\/",
+            "notes": "",
+            "list": 1
+        },
+        "guild-wars-2": {
+            "id": "guild-wars-2",
+            "name": "Guild Wars 2",
+            "players": "5-player party \/ 50-player squad",
+            "genre": "MMO",
+            "steam": "https:\/\/store.steampowered.com\/app\/1284210\/Guild_Wars_2\/",
+            "notes": "",
+            "list": 1
+        },
+        "eve-online": {
+            "id": "eve-online",
+            "name": "EVE Online",
+            "players": "Fleets",
+            "genre": "MMO",
+            "steam": "https:\/\/store.steampowered.com\/app\/8500\/EVE_Online\/",
+            "notes": "",
+            "list": 1
+        },
+        "old-school-runescape": {
+            "id": "old-school-runescape",
+            "name": "Old School RuneScape",
+            "players": "Flexible",
+            "genre": "MMO",
+            "steam": "https:\/\/store.steampowered.com\/app\/1343370\/Old_School_RuneScape\/",
+            "notes": "",
+            "list": 1
+        },
+        "albion-online": {
+            "id": "albion-online",
+            "name": "Albion Online",
+            "players": "Flexible \/ large groups",
+            "genre": "MMO",
+            "steam": "https:\/\/store.steampowered.com\/app\/761890\/Albion_Online\/",
+            "notes": "",
+            "list": 1
+        },
+        "star-wars-the-old-republic": {
+            "id": "star-wars-the-old-republic",
+            "name": "Star Wars: The Old Republic",
+            "players": "4\/8\/12-player group",
+            "genre": "MMO",
+            "steam": "",
+            "notes": "No Steam version",
+            "list": 1
+        },
+        "lost-ark": {
+            "id": "lost-ark",
+            "name": "Lost Ark",
+            "players": "",
+            "genre": "4\/8-player content",
+            "steam": "https:\/\/store.steampowered.com\/app\/1599340\/Lost_Ark\/",
+            "notes": "",
+            "list": 1
+        },
+        "ashes-of-creation": {
+            "id": "ashes-of-creation",
+            "name": "Ashes of Creation",
+            "players": "",
+            "genre": "6\/12\/24",
+            "steam": "",
+            "notes": "",
+            "list": 1
+        },
+        "throne-of-liberty": {
+            "id": "throne-of-liberty",
+            "name": "Throne of Liberty",
+            "players": "",
+            "genre": "6\/12\/24",
+            "steam": "https:\/\/store.steampowered.com\/app\/2429640\/Throne_and_Liberty\/",
+            "notes": "",
+            "list": 1
+        },
+        "pantheon-rise-of-the-fallen": {
+            "id": "pantheon-rise-of-the-fallen",
+            "name": "Pantheon Rise of the Fallen",
+            "players": "",
+            "genre": "Everquest Style",
+            "steam": "https:\/\/store.steampowered.com\/app\/3107230\/Pantheon_Rise_of_the_Fallen\/",
+            "notes": "",
+            "list": 1
+        },
+        "monsters-and-memories": {
+            "id": "monsters-and-memories",
+            "name": "Monsters and Memories",
+            "players": "",
+            "genre": "Old School MMO Style",
+            "steam": "",
+            "notes": "",
+            "list": 1
+        }
+    },
+    "votes": [],
+    "comments": []
 }
