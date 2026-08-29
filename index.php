@@ -251,7 +251,7 @@ async function init(){
 
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
-</script></head><body><main><div class="userbar">Logged in as <strong id="current-user">…</strong><span class="userbar-sep"> · </span><a href="logout.php">Log out</a><span style="margin-left:10px"></span></div>
+</script></head><body><main><div class="userbar">Logged in as <strong id="current-user">…</strong><span class="userbar-sep"> · </span><a href="logout.php">Log out</a><?php if(($_SESSION['user']??'')==='admin'){ echo '<span class="userbar-sep"> · </span><a href="admin.php">Admin</a>'; } ?><span style="margin-left:10px"></span></div>
 <h1>Games für die Freigeister</h1>
 <p class="intro">Community ratings and comments. Click the comments button for a game's card to read and post comments and see individual ratings.</p>
 <h2>Liste 1</h2>
